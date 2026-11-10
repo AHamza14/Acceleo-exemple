@@ -1,0 +1,17 @@
+[comment encoding = UTF-8 /]
+[module generate('http://www.eclipse.org/uml2/5.0.0/UML')/]
+
+[template public generate(m : Model)]
+[comment @main /]
+[for (c : Class | m.eAllContents(Class))]
+	[file (c.qualifiedName.substituteAll('::', '/').concat('.cs'), false, 'UTF-8')]
+	    [c.visibility/] class [c.name/]
+	    {
+			[for (p : Property | c.ownedAttribute)]
+				[p.visibility/] [p.type.name/] [p.name/] 
+			[/for]
+	    }
+	[/file]
+[/for]
+[/template]
+
